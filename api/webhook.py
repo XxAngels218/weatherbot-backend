@@ -32,5 +32,5 @@ async def whatsapp_webhook(
     except Exception as e:
         # In case of error, send a friendly message
         twiml = MessagingResponse()
-        twiml.message("Lo siento, hubo un error procesando tu mensaje. Por favor, intenta de nuevo.")
+        twiml.message("Sorry, there was an error processing your message. Please try again.")
         return str(twiml) 

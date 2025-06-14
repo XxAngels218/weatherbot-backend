@@ -17,7 +17,7 @@ class WeatherService:
             "q": city,
             "appid": self.api_key,
             "units": "metric",
-            "lang": "es"
+            "lang": "en"
         }
         
         response = requests.get(url, params=params)
@@ -31,7 +31,7 @@ class WeatherService:
             "q": city,
             "appid": self.api_key,
             "units": "metric",
-            "lang": "es"
+            "lang": "en"
         }
         
         response = requests.get(url, params=params)
@@ -46,11 +46,11 @@ class WeatherService:
             description = data["weather"][0]["description"]
             humidity = data["main"]["humidity"]
             
-            return f"🌤️ Clima actual:\n" \
-                   f"Temperatura: {temp}°C\n" \
-                   f"Sensación térmica: {feels_like}°C\n" \
-                   f"Condiciones: {description}\n" \
-                   f"Humedad: {humidity}%"
+            return f"🌤️ Current Weather:\n" \
+                   f"Temperature: {temp}°C\n" \
+                   f"Feels like: {feels_like}°C\n" \
+                   f"Conditions: {description}\n" \
+                   f"Humidity: {humidity}%"
         
         elif "list" in data:  # Forecast
             forecast = data["list"][0]  # Get first forecast
@@ -58,8 +58,8 @@ class WeatherService:
             description = forecast["weather"][0]["description"]
             dt_txt = forecast["dt_txt"]
             
-            return f"📅 Pronóstico para {dt_txt}:\n" \
-                   f"Temperatura: {temp}°C\n" \
-                   f"Condiciones: {description}"
+            return f"📅 Forecast for {dt_txt}:\n" \
+                   f"Temperature: {temp}°C\n" \
+                   f"Conditions: {description}"
         
-        return "No se pudo obtener la información del clima." 
+        return "Could not retrieve weather information." 

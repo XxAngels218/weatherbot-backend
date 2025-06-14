@@ -1,88 +1,88 @@
 # WeatherBot Backend
 
-Un chatbot de clima inteligente construido con FastAPI, Langchain y Gemini API.
+An intelligent weather chatbot built with FastAPI, Langchain, and Gemini API.
 
-## Características
+## Features
 
-- 🤖 Chatbot de clima usando Gemini API
-- 🌤️ Integración con OpenWeather API
-- 📱 Soporte para WhatsApp a través de Twilio
-- 📊 Observabilidad con LangSmith
-- 🐳 Despliegue fácil con Docker
-- 🚀 Configuración para Render.com
+- 🤖 Weather chatbot using Gemini API
+- 🌤️ OpenWeather API integration
+- 📱 WhatsApp support through Twilio
+- 📊 Observability with LangSmith
+- 🐳 Easy deployment with Docker
+- 🚀 Render.com configuration
 
-## Requisitos
+## Requirements
 
 - Python 3.11+
-- Cuenta de Google Cloud (para Gemini API)
-- Cuenta de OpenWeather
-- Cuenta de Twilio (opcional, para WhatsApp)
-- Cuenta de LangSmith (opcional, para observabilidad)
+- Google Cloud account (for Gemini API)
+- OpenWeather account
+- Twilio account (optional, for WhatsApp)
+- LangSmith account (optional, for observability)
 
-## Configuración
+## Setup
 
-1. Clona el repositorio:
+1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/weatherbot-backend.git
+git clone https://github.com/XxAngels218/weatherbot-backend.git
 cd weatherbot-backend
 ```
 
-2. Crea un entorno virtual:
+2. Create a virtual environment:
 ```bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Instala las dependencias:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Copia el archivo .env.example a .env y configura las variables:
+4. Copy .env.example to .env and configure variables:
 ```bash
 cp .env.example .env
 ```
 
-5. Edita el archivo .env con tus claves API:
-```bash
-GEMINI_API_KEY=tu_clave_de_gemini
-OPENWEATHER_API_KEY=tu_clave_de_openweather
-TWILIO_AUTH_TOKEN=tu_token_de_twilio
-LANGCHAIN_API_KEY=tu_clave_de_langsmith
+5. Edit .env with your API keys:
+```
+GEMINI_API_KEY=your_gemini_api_key
+OPENWEATHER_API_KEY=your_openweather_api_key
+TWILIO_AUTH_TOKEN=your_twilio_auth_token
+LANGCHAIN_API_KEY=your_langsmith_api_key
 ```
 
-## Ejecución Local
+## Local Development
 
 ```bash
 uvicorn main:app --reload
 ```
 
-El servidor estará disponible en `http://localhost:8000`
+The server will be available at `http://localhost:8000`
 
 ## Endpoints
 
 ### Chat API
-- `POST /api/chat`: Endpoint para interactuar con el chatbot
+- `POST /api/chat`: Endpoint to interact with the chatbot
   ```json
   {
     "messages": [
-      {"role": "user", "content": "¿Cómo está el clima en Madrid?"}
+      {"role": "user", "content": "What's the weather like in Madrid?"}
     ]
   }
   ```
 
-### Webhook WhatsApp
-- `POST /webhook/whatsapp`: Endpoint para recibir mensajes de WhatsApp a través de Twilio
+### WhatsApp Webhook
+- `POST /webhook/whatsapp`: Endpoint to receive WhatsApp messages through Twilio
 
-## Despliegue en Render
+## Render Deployment
 
-1. Crea una cuenta en [Render](https://render.com)
-2. Conecta tu repositorio de GitHub
-3. Crea un nuevo Web Service
-4. Configura las variables de entorno en el dashboard de Render
-5. ¡Listo! Tu aplicación se desplegará automáticamente
+1. Create an account on [Render](https://render.com)
+2. Connect your GitHub repository
+3. Create a new Web Service
+4. Configure environment variables in the Render dashboard
+5. Done! Your application will deploy automatically
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 weatherbot-backend/
@@ -106,14 +106,14 @@ weatherbot-backend/
 └── requirements.txt
 ```
 
-## Contribuir
+## Contributing
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Licencia
+## License
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles. 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 

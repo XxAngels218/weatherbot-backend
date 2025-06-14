@@ -27,10 +27,10 @@ class WeatherAgent:
         
         # Create prompt template
         self.prompt = ChatPromptTemplate.from_messages([
-            ("system", """Eres un asistente especializado en el clima. 
-            Puedes proporcionar información sobre el clima actual y pronósticos.
-            Usa las herramientas disponibles para obtener información precisa.
-            Responde siempre en español de manera amigable y concisa."""),
+            ("system", """You are a weather assistant specialized in providing weather information.
+            You can provide information about current weather and forecasts.
+            Use the available tools to get accurate information.
+            Always respond in a friendly and concise manner."""),
             MessagesPlaceholder(variable_name="chat_history"),
             ("human", "{input}"),
             MessagesPlaceholder(variable_name="agent_scratchpad"),
@@ -57,7 +57,7 @@ class WeatherAgent:
             data = await self.weather_service.get_current_weather(city)
             return self.weather_service.format_weather_response(data)
         except Exception as e:
-            return f"Error al obtener el clima actual: {str(e)}"
+            return f"Error getting current weather: {str(e)}"
     
     @tool
     async def get_forecast(self, city: str) -> str:
@@ -66,7 +66,7 @@ class WeatherAgent:
             data = await self.weather_service.get_forecast(city)
             return self.weather_service.format_weather_response(data)
         except Exception as e:
-            return f"Error al obtener el pronóstico: {str(e)}"
+            return f"Error getting forecast: {str(e)}"
     
     async def process_messages(self, messages: List[Dict[str, str]]) -> str:
         """Process a list of messages and return a response"""
@@ -82,4 +82,4 @@ class WeatherAgent:
             
             return response["output"]
         except Exception as e:
-            return f"Lo siento, hubo un error procesando tu mensaje: {str(e)}" 
+            return f"Sorry, there was an error processing your message: {str(e)}" 
