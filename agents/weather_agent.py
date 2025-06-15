@@ -7,6 +7,9 @@ from langchain.tools import tool
 from langchain.smith import RunEvalConfig, run_on_dataset
 from langchain.callbacks.tracers import LangChainTracer
 from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.tracers.langchain import LangChainTracer
+from langchain.callbacks.tracers.run_collector import RunCollectorCallbackHandler
+from langchain.smith import RunEvalConfig, run_on_dataset
 from services.weather import WeatherService
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, AIMessage
@@ -16,9 +19,14 @@ load_dotenv()
 
 # Configure LangSmith
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_ENDPOINT"] = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
+os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGCHAIN_PROJECT", "weatherbot")
+os.environ["LANGCHAIN_PROJECT"] = "weatherbot"
+
+# Create a tracer
+tracer = LangChainTracer()
+run_collector = RunCollectorCallbackHandler()
+callback_manager = CallbackManager([tracer, run_collector])
 
 # Instantiate the weather service once
 weather_service = WeatherService()
@@ -47,7 +55,7 @@ class WeatherAgent:
         self.llm = ChatOpenAI(
             model="gpt-3.5-turbo",
             temperature=0.7,
-            callbacks=[LangChainTracer()]
+            callbacks=callback_manager
         )
         
         # Define tools
@@ -76,7 +84,7 @@ class WeatherAgent:
             tools=self.tools,
             verbose=True,
             handle_parsing_errors=True,
-            callbacks=[LangChainTracer()]
+            callbacks=callback_manager
         )
     
     async def process_messages(self, messages: List[Dict[str, str]]) -> str:
