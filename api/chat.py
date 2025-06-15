@@ -19,7 +19,9 @@ class ChatResponse(BaseModel):
 async def chat(request: ChatRequest):
     try:
         agent = WeatherAgent()
-        response = await agent.process_messages(request.messages)
+        # Convert Pydantic models to dict for the agent
+        messages = [{"role": msg.role, "content": msg.content} for msg in request.messages]
+        response = await agent.process_messages(messages)
         return ChatResponse(response=response)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) 

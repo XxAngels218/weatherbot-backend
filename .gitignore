@@ -25,18 +25,21 @@ venv/
 ENV/
 env/
 
+# Environment Variables
+.env
+
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 
-# Environment variables
-.env
+# Docker
+.docker/
 
 # Logs
 *.log
 
-# OS
+# Local development
 .DS_Store
 Thumbs.db 
