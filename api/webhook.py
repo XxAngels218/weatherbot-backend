@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Form
+from fastapi import APIRouter, Request, Form, Response
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 from agents.weather_agent import WeatherAgent
@@ -39,12 +39,13 @@ async def whatsapp_webhook(
         twiml = MessagingResponse()
         twiml.message(response)
         
-        return str(twiml)
+        # Return XML with correct Content-Type
+        return Response(content=str(twiml), media_type="application/xml")
     except Exception as e:
         # In case of error, send a friendly message
         twiml = MessagingResponse()
         twiml.message(f"Sorry, there was an error processing your message: {str(e)}")
-        return str(twiml)
+        return Response(content=str(twiml), media_type="application/xml")
 
 @router.get("/whatsapp/status")
 async def whatsapp_status():
