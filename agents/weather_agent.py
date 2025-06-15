@@ -5,12 +5,20 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.tools import tool
 from langchain.smith import RunEvalConfig, run_on_dataset
+from langchain.callbacks.tracers import LangChainTracer
+from langchain.callbacks.manager import CallbackManager
 from services.weather import WeatherService
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, AIMessage
 import asyncio
 
 load_dotenv()
+
+# Configure LangSmith
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_ENDPOINT"] = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
+os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
+os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGCHAIN_PROJECT", "weatherbot")
 
 # Instantiate the weather service once
 weather_service = WeatherService()
@@ -35,10 +43,11 @@ async def get_forecast(city: str) -> str:
 
 class WeatherAgent:
     def __init__(self):
-        # Initialize OpenAI model
+        # Initialize OpenAI model with LangSmith tracing
         self.llm = ChatOpenAI(
             model="gpt-3.5-turbo",
-            temperature=0.7
+            temperature=0.7,
+            callbacks=[LangChainTracer()]
         )
         
         # Define tools
@@ -54,19 +63,20 @@ class WeatherAgent:
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ])
         
-        # Create agent
+        # Create agent with tracing
         self.agent = create_openai_functions_agent(
             llm=self.llm,
             tools=self.tools,
             prompt=self.prompt
         )
         
-        # Create agent executor
+        # Create agent executor with tracing
         self.agent_executor = AgentExecutor(
             agent=self.agent,
             tools=self.tools,
             verbose=True,
-            handle_parsing_errors=True
+            handle_parsing_errors=True,
+            callbacks=[LangChainTracer()]
         )
     
     async def process_messages(self, messages: List[Dict[str, str]]) -> str:
