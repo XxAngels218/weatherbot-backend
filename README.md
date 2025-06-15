@@ -8,6 +8,7 @@ A weather chatbot API using FastAPI, Langchain, and Gemini. This backend provide
 - WhatsApp integration via Twilio
 - OpenAI integration for natural language processing
 - Docker support for easy deployment
+- **Observability with LangSmith** (see below)
 
 ## Prerequisites
 
@@ -120,6 +121,24 @@ curl -X POST "http://localhost:8000/webhook/whatsapp" \
   -d "Body=What is the weather like in New York?&From=whatsapp:+1234567890"
 ```
 
+## Automated Tests
+
+This project includes automated tests to ensure the core functionality of the WeatherBot backend:
+
+- Tests cover the chat API, WhatsApp webhook, and weather service integration.
+- To run the tests locally:
+
+```bash
+pytest
+```
+
+- Make sure to install the development dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Test results will be shown in the terminal. You can add more tests in the `tests/` directory. 
+
 ## Deployment
 
 The application is containerized and can be deployed to any cloud platform that supports Docker containers (e.g., Render.com, Heroku, AWS, etc.).
@@ -162,4 +181,71 @@ weatherbot-backend/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Observability with LangSmith
+
+WeatherBot includes full observability and tracing using [LangSmith](https://smith.langchain.com/):
+
+- **Conversation Tracing:** Every user interaction is logged as a trace.
+- **Token Usage & Latency:** Monitor tokens, costs, and response times.
+- **Error Tracking:** All errors and exceptions are visible in the dashboard.
+- **External API Calls:** See all weather and LLM calls.
+
+**Example LangSmith Dashboard:**
+![LangSmith Dashboard](./docs/screenshots/langsmith_dashboard.png)
+*You can see each run, input/output, latency, tokens, and errors for every conversation.*
+
+## Live Deployment on Render
+
+WeatherBot is deployed and running on [Render.com](https://render.com/):
+
+- **Production URL:**  
+  [https://weatherbot-backend-go0c.onrender.com](https://weatherbot-backend-go0c.onrender.com)
+
+**Example Render Service Settings:**
+![Render Service Settings](./docs/screenshots/render_settings.png)
+
+**Example Render Logs:**
+![Render Logs](./docs/screenshots/render_logs.png)
+
+## Try it on WhatsApp
+
+You can test WeatherBot directly from WhatsApp using the Twilio Sandbox:
+
+1. **Join the Sandbox:**  
+   Send the code shown in your Twilio console to  
+   `+1 415 523 8886`  
+   ![Twilio Sandbox Join](./docs/screenshots/twilio_sandbox_join.png)
+
+2. **Send a message:**  
+   Ask for the weather, e.g. `What is the weather in London?`  
+   > ⚠️ The first response may take up to 1 minute due to server cold start.
+
+**Example WhatsApp Conversation:**
+![WhatsApp Conversation](./docs/screenshots/whatsapp_conversation.png)
+
+**Twilio Messaging Logs:**
+![Twilio Messaging Logs](./docs/screenshots/twilio_logs.png)
+
+## Application Flow
+
+The application follows this flow for every user interaction:
+
+1. **User sends a message** via WhatsApp (or API).
+2. **Twilio** receives the message and forwards it to the webhook endpoint (`/webhook/whatsapp`).
+3. **FastAPI backend** receives the webhook, extracts the message, and passes it to the WeatherAgent.
+4. **WeatherAgent**:
+    - Uses LangChain and OpenAI to interpret the user's intent.
+    - If weather data is needed, calls the OpenWeather API.
+    - Constructs a friendly, concise response.
+    - All steps are traced and logged in LangSmith for observability.
+5. **Backend returns a TwiML XML response** to Twilio.
+6. **Twilio delivers the response** back to the user on WhatsApp.
+7. **All interactions** (inputs, outputs, errors, latency, token usage) are visible in LangSmith for monitoring and debugging.
+
+**Visual Flow:**
+1. ![LangSmith Dashboard](./docs/screenshots/langsmith_dashboard.png) — See all traces and details.
+2. ![Render Logs](./docs/screenshots/render_logs.png) — Monitor backend logs and status.
+3. ![WhatsApp Conversation](./docs/screenshots/whatsapp_conversation.png) — Example user interaction.
+
