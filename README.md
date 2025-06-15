@@ -179,9 +179,6 @@ weatherbot-backend/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Observability with LangSmith
 
@@ -193,7 +190,8 @@ WeatherBot includes full observability and tracing using [LangSmith](https://smi
 - **External API Calls:** See all weather and LLM calls.
 
 **Example LangSmith Dashboard:**
-![LangSmith Dashboard](./docs/screenshots/langsmith_dashboard.png)
+![image](https://github.com/user-attachments/assets/6ed53366-cc76-4546-b4f4-eabe51c43b8d)
+
 *You can see each run, input/output, latency, tokens, and errors for every conversation.*
 
 ## Live Deployment on Render
@@ -204,10 +202,12 @@ WeatherBot is deployed and running on [Render.com](https://render.com/):
   [https://weatherbot-backend-go0c.onrender.com](https://weatherbot-backend-go0c.onrender.com)
 
 **Example Render Service Settings:**
-![Render Service Settings](./docs/screenshots/render_settings.png)
+![image](https://github.com/user-attachments/assets/53bfea4b-7f3a-422b-b417-e4fbf2b0aed8)
+
 
 **Example Render Logs:**
-![Render Logs](./docs/screenshots/render_logs.png)
+![image](https://github.com/user-attachments/assets/ec1fa6b9-2ce4-4311-bac0-3efcd4f33dda)
+
 
 ## Try it on WhatsApp
 
@@ -216,17 +216,18 @@ You can test WeatherBot directly from WhatsApp using the Twilio Sandbox:
 1. **Join the Sandbox:**  
    Send the code shown in your Twilio console to  
    `+1 415 523 8886`  
-   ![Twilio Sandbox Join](./docs/screenshots/twilio_sandbox_join.png)
 
 2. **Send a message:**  
    Ask for the weather, e.g. `What is the weather in London?`  
    > ⚠️ The first response may take up to 1 minute due to server cold start.
 
 **Example WhatsApp Conversation:**
-![WhatsApp Conversation](./docs/screenshots/whatsapp_conversation.png)
+![image](https://github.com/user-attachments/assets/a9992357-4b55-4f5a-ba89-8d0253852935)
+
 
 **Twilio Messaging Logs:**
-![Twilio Messaging Logs](./docs/screenshots/twilio_logs.png)
+![image](https://github.com/user-attachments/assets/33262c30-87df-4936-9b57-373a25460e72)
+
 
 ## Application Flow
 
@@ -245,7 +246,7 @@ The application follows this flow for every user interaction:
 7. **All interactions** (inputs, outputs, errors, latency, token usage) are visible in LangSmith for monitoring and debugging.
 
 **Visual Flow:**
-1. ![LangSmith Dashboard](./docs/screenshots/langsmith_dashboard.png) — See all traces and details.
-2. ![Render Logs](./docs/screenshots/render_logs.png) — Monitor backend logs and status.
-3. ![WhatsApp Conversation](./docs/screenshots/whatsapp_conversation.png) — Example user interaction.
+1. ![image](https://github.com/user-attachments/assets/6ed53366-cc76-4546-b4f4-eabe51c43b8d) — See all traces and details.
+2. ![image](https://github.com/user-attachments/assets/ec1fa6b9-2ce4-4311-bac0-3efcd4f33dda) — Monitor backend logs and status.
+3. ![image](https://github.com/user-attachments/assets/a9992357-4b55-4f5a-ba89-8d0253852935) — Example user interaction.
 
