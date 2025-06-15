@@ -1,6 +1,6 @@
 # WeatherBot Backend
 
-A weather chatbot API using FastAPI, Langchain, and Gemini. This backend provides weather information through a REST API and WhatsApp integration.
+A weather chatbot API using FastAPI, Langchain, and OpenAI . This backend provides weather information through a REST API and WhatsApp integration.
 
 ## Features
 
