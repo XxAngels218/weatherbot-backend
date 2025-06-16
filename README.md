@@ -214,7 +214,7 @@ WeatherBot is deployed and running on [Render.com](https://render.com/):
 You can test WeatherBot directly from WhatsApp using the Twilio Sandbox:
 
 1. **Join the Sandbox:**  
-   Send the code **join began-never**  to 
+   Send the code (**join began-never**)  to 
    `+1 415 523 8886`  
 
 2. **Send a message:**  
