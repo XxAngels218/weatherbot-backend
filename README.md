@@ -139,6 +139,27 @@ pip install -r requirements.txt
 
 Test results will be shown in the terminal. You can add more tests in the `tests/` directory. 
 
+## Running Tests in Docker
+
+To run the tests inside the Docker container (recommended for a production-like environment):
+
+```bash
+docker build -t weatherbot-backend-test .
+docker run --rm \
+  -e OPENWEATHER_API_KEY=your_openweather_api_key \
+  -e TWILIO_ACCOUNT_SID=your_twilio_account_sid \
+  -e TWILIO_AUTH_TOKEN=your_twilio_auth_token \
+  -e TWILIO_PHONE_NUMBER=your_twilio_phone_number \
+  -e LANGCHAIN_API_KEY=your_langchain_api_key \
+  -e LANGCHAIN_PROJECT=weatherbot \
+  -e LANGCHAIN_ENDPOINT=https://api.smith.langchain.com \
+  -e OPENAI_API_KEY=your_openai_api_key \
+  -e PYTHONPATH=/app -w /app \
+  weatherbot-backend-test pytest
+```
+
+This ensures your tests run in the same environment as production.
+
 ## Deployment
 
 The application is containerized and can be deployed to any cloud platform that supports Docker containers (e.g., Render.com, Heroku, AWS, etc.).
