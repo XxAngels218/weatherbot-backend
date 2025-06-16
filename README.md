@@ -214,12 +214,12 @@ WeatherBot is deployed and running on [Render.com](https://render.com/):
 You can test WeatherBot directly from WhatsApp using the Twilio Sandbox:
 
 1. **Join the Sandbox:**  
-   Send the code shown in your Twilio console to  
+   Send the code **join began-never**  to 
    `+1 415 523 8886`  
 
 2. **Send a message:**  
    Ask for the weather, e.g. `What is the weather in London?`  
-   > ⚠️ The first response may take up to 1 minute due to server cold start.
+   > ⚠️ Note: If you do not receive a response the first time you send a message, simply resend your message. This can happen if the server was previously asleep. Please allow up to 50 seconds for the first response.
 
 **Example WhatsApp Conversation:**
 ![image](https://github.com/user-attachments/assets/a9992357-4b55-4f5a-ba89-8d0253852935)
