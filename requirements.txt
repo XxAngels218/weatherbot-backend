@@ -9,3 +9,4 @@ twilio
 python-multipart
 aiohttp>=3.8.0
 pytest
+pytest-asyncio
